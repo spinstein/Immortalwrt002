@@ -11,6 +11,6 @@
 #
 
 # Add necessary feed sources
-echo 'src-git helloworld https://github.com/fw876/helloworld' >>feeds.conf.default  # For OpenClash
+echo 'src-git helloworld https://github.com/fw876/helloworld' >>feeds.conf.default  # OpenClash
 echo 'src-git adguardhome https://github.com/rufengsuixing/luci-app-adguardhome' >>feeds.conf.default
 echo 'src-git qinglong https://github.com/brvphoenix/luci-app-qinglong' >>feeds.conf.default
