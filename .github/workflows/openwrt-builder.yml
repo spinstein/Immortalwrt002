@@ -1,23 +1,17 @@
-#
-# https://github.com/P3TERX/Actions-OpenWrt
-#
-# File: .github/workflows/openwrt-bulder.yml
-# Description: Build OpenWrt using GitHub Actions
-#
-# Copyright (c) 2019-2024 P3TERX <https://p3terx.com>
-#
-# This is free software, licensed under the MIT License.
-# See /LICENSE for more information.
-#
-
 name: OpenWrt Builder
 
 on:
   repository_dispatch:
   workflow_dispatch:
+    inputs:
+      enable_ssh:
+        description: 'Enable SSH connection for debugging'
+        required: false
+        default: false
+        type: boolean
 
 env:
-  REPO_URL: https://github.com/coolsnowwolf/lede
+  REPO_URL: https://github.com/immortalwrt/immortalwrt
   REPO_BRANCH: master
   FEEDS_CONF: feeds.conf.default
   CONFIG_FILE: .config
@@ -34,7 +28,12 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@main
+      uses: actions/checkout@v3
+
+    - name: Enable SSH if requested
+      if: ${{ github.event_name == 'workflow_dispatch' && inputs.enable_ssh }}
+      uses: mxschmitt/action-tmate@v3
+      timeout-minutes: 30
 
     - name: Initialization environment
       env:
