@@ -29,13 +29,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      # 添加SSH连接支持
+      # SSH调试支持（目标④实现）
       - name: Setup SSH Debugging
         if: ${{ github.event.inputs.enable_ssh == 'true' }}
         uses: mxschmitt/action-tmate@v3
         with:
           limit-access-to-actor: true
-          timeout-minutes: 60  # 延长超时时间
+          timeout-minutes: 60
 
       - name: Initialization environment
         env:
