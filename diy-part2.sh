@@ -13,5 +13,11 @@
 # Modify default IP to avoid conflict
 sed -i 's/192.168.1.1/192.168.5.1/g' package/base-files/files/bin/config_generate
 
-# Remove ALL themes to reduce size and improve stability
-find feeds/luci/themes -maxdepth 1 -type d ! -name luci-theme-bootstrap -exec rm -rf {} +
+# Remove ALL themes (including bootstrap) and unnecessary UI components
+find feeds/luci -type d -name "themes" -exec rm -rf {} + 2>/dev/null
+rm -rf feeds/luci/applications/luci-app-argon-config
+rm -rf feeds/luci/applications/luci-app-vlmcsd
+rm -rf feeds/luci/applications/luci-app-unblockmusic
+
+# Remove auto-added theme dependencies
+sed -i '/luci-theme/d' .config 2>/dev/null
