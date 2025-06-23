@@ -13,17 +13,15 @@
 # 修改默认IP避免冲突
 sed -i 's/192.168.1.1/192.168.5.1/g' package/base-files/files/bin/config_generate
 
-# 删除所有主题和无关UI组件
+# 彻底删除所有主题和无关组件
 find feeds/luci -type d -name "themes" -exec rm -rf {} + 2>/dev/null
 find . -name "luci-theme-*" -exec rm -rf {} + 2>/dev/null
-rm -rf feeds/luci/applications/luci-app-argon-config
+rm -rf feeds/luci/applications/luci-app-argon-*
 rm -rf feeds/luci/applications/luci-app-vlmcsd
 rm -rf feeds/luci/applications/luci-app-unblockmusic
 rm -rf feeds/luci/applications/luci-app-wrtbwmon
 rm -rf feeds/luci/applications/luci-app-serverchan
-rm -rf feeds/luci/applications/luci-app-samba4
-
-# 新增删除无关插件（确保系统精简）
+rm -rf feeds/luci/applications/luci-app-samba*
 rm -rf feeds/luci/applications/luci-app-arpbind
 rm -rf feeds/luci/applications/luci-app-ddns
 rm -rf feeds/luci/applications/luci-app-upnp
@@ -34,10 +32,14 @@ rm -rf feeds/luci/applications/luci-app-nlbwmon
 rm -rf feeds/luci/applications/luci-app-adbyby-plus
 rm -rf feeds/luci/applications/luci-app-frpc
 rm -rf feeds/luci/applications/luci-app-frps
+rm -rf feeds/luci/applications/luci-app-uhttpd
 
 # 删除自动添加的主题依赖
 sed -i '/luci-theme/d' .config 2>/dev/null
 sed -i '/CONFIG_PACKAGE_luci-theme/d' .config 2>/dev/null
 
-# 删除无关语言包
+# 删除无关语言包（仅保留中文）
 find . -name "luci-i18n-*" ! -name "*zh-cn*" -exec rm -rf {} + 2>/dev/null
+
+# 删除残留主题配置
+find package -type d -name "luci-theme-*" ! -name "luci-theme-bootstrap" -exec rm -rf {} + 2>/dev/null
