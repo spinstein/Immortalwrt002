@@ -23,6 +23,18 @@ rm -rf feeds/luci/applications/luci-app-wrtbwmon
 rm -rf feeds/luci/applications/luci-app-serverchan
 rm -rf feeds/luci/applications/luci-app-samba4
 
+# 新增删除无关插件（确保系统精简）
+rm -rf feeds/luci/applications/luci-app-arpbind
+rm -rf feeds/luci/applications/luci-app-ddns
+rm -rf feeds/luci/applications/luci-app-upnp
+rm -rf feeds/luci/applications/luci-app-wol
+rm -rf feeds/luci/applications/luci-app-accesscontrol
+rm -rf feeds/luci/applications/luci-app-filetransfer
+rm -rf feeds/luci/applications/luci-app-nlbwmon
+rm -rf feeds/luci/applications/luci-app-adbyby-plus
+rm -rf feeds/luci/applications/luci-app-frpc
+rm -rf feeds/luci/applications/luci-app-frps
+
 # 删除自动添加的主题依赖
 sed -i '/luci-theme/d' .config 2>/dev/null
 sed -i '/CONFIG_PACKAGE_luci-theme/d' .config 2>/dev/null
